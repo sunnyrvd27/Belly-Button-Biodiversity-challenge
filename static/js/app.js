@@ -99,16 +99,16 @@ function optionChanged(testSubjectID){
         yaxis: {title: 'Number of Samples Collected'},
         showlegend: false,
         height: 800,
-        width: 1800
+        width: 1200
     };
     
     // Plot using Plotly
     Plotly.newPlot('bubble', [trace1], layout1);
 
     //------------ Code for Bubble Chart ------------------------------------------------------
-    
 
- // BONUS: GAUGE CHART
+//------------ BONUS ---------------------------------------------------------------------
+//------------ Code for Gauge Chart ------------------------------------------------------
 
  // Gauge Chart to plot weekly washing frequency 
  const guageDisplay = d3.select("#gauge");
@@ -121,7 +121,7 @@ function optionChanged(testSubjectID){
       value: washFreq,
       title: { text: "<b>Belly Button Washing Frequency </b><br> Scrubs Per Week" },
       type: "indicator",
-      mode: "gauge+number",     
+      mode: "gauge+number+delta",     
        gauge: {
        axis: { range: [0,9] },
        bar: { color: "#1919FF" },
@@ -134,11 +134,12 @@ function optionChanged(testSubjectID){
         { range: [5, 6], color: "#DDFF33" },
         { range: [6, 7], color: "#99FF33" },
         { range: [7, 8], color: "#77FF33" },
-        { range: [8, 9], color: "#33FF33" }
-              
+        { range: [8, 9], color: "#33FF33" }        
       ],
        threshold: {
-          value: washFreq
+            line: { color: "#F5F3F2", width: 5 },
+            thickness: 0.75,
+            value: washFreq
         }
       }
     }
@@ -151,14 +152,13 @@ function optionChanged(testSubjectID){
  // Plot using Plotly
   Plotly.newPlot('gauge', guageData, gaugeLayout); 
  
- });
- }
- 
- // Initial test starts at ID 940
+});
+}
+    
+ // Initial function for Test Subject ID = 940
  optionChanged(940);
  
  // Event on change takes the value and calls the function during dropdown selection
  d3.select("#selDataset").on('change',() => {
  optionChanged(d3.event.target.value);
- 
  });   
